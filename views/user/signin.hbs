@@ -1,0 +1,33 @@
+<div class="d-flex align-items-center justify-content-center w-100 vh-100">
+    <div class="card w-50 mw-100">
+        <div class="card-header">
+            Login
+        </div>
+        <div class="card-body">
+            {{!-- <img src="/images/signup.jpg" class="card-img-top" alt="" srcset=""> --}}
+            <form action="signin" method="post">
+                {{#each messages}}
+                <div class="alert alert-danger alert-sm alert-dismissible fade show sm" role="alert">
+                    <strong>Attention!!</strong> {{this}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {{/each}}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" placeholder="xyz@example.com" autocomplete="email" class="form-control" required
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" placeholder="enter password" autocomplete="current-password"
+                        class="form-control">
+                </div>
+                {{!-- <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div> --}}
+                <button type="submit" class="btn btn-primary float-end">Sign in</button>
+            </form>
+        </div>
+    </div>
+</div>

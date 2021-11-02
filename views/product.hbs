@@ -1,0 +1,28 @@
+<div class="container">
+    {{#if products}}
+    <div class="row">
+        {{#each products}}
+        <div class="col py-4 my-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{this.img}}" style="max-height: 25rem;" class="card-img-top" alt="samsung">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p>
+                        Storage Capacity: {{this.description.storage}}GB<br />
+                        Number Of SIM: {{this.description.sim}}<br />
+                        Rear Camera Resolution: {{this.description.resolution}}MP<br />
+                        Display Size(in): {{this.description.display}}in<br />
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-danger fw-bold">{{this.price}}$</small>
+                        <a href="#" class="btn btn-warning btn-sm text-black float-end">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <p class="text-center pt-4">No Product Found, Please Add some Products</p>
+    {{/if}}
+</div>
