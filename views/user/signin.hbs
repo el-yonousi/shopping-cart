@@ -8,7 +8,7 @@
             <form action="signin" method="post">
                 {{#each messages}}
                 <div class="alert alert-danger alert-sm alert-dismissible fade show sm" role="alert">
-                    <strong>Attention!!</strong> {{this}}
+                    <strong>{{this.key}}</strong> {{this.mssg}}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 {{/each}}

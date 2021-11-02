@@ -63,7 +63,7 @@ app.use(session({
     secret: 'shppinp-cart_?@!$$%',
     /* those fields emppty */
     saveUninitialized: false,
-    resave: false /* replace fields */
+    resave: true /* replace fields */
 }))
 
 /* express connect flash */
@@ -71,7 +71,7 @@ app.use(flash())
 
 /* */
 app.use(passport.initialize())
-app.use(session())
+app.use(passport.session())
 
 app.use(express.static(path.join(__dirname, 'public')))
 

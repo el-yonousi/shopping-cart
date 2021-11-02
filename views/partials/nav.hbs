@@ -11,7 +11,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/product">
+                    <a class="nav-link" href="/products">
                         <i class="bi bi-bag-check-fill"></i>
                         Product
                     </a>
@@ -25,18 +25,64 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-lines-fill"></i>
-                        User Management
+                        {{#if checkAuthUser}}
+                        {{!-- nothing to show --}}
+                        {{else}}
+                        <i class="bi bi-person-circle"></i>
+                        {{/if}}
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:3000/users/signin">Sign In</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:3000/users/signup">Sign Up</a></li>
+                    <ul class="dropdown-menu float-end" aria-labelledby="navbarDropdown">
+                        {{#if checkAuthUser}}
+                        {{#if checkProfile}}
                         <li>
-                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="/users/logout">
+                                <i class="bi bi-box-arrow-left"></i> Logout
+                            </a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        {{else}}
+                        <li>
+                            <a class="dropdown-item" href="/users/profile">
+                                <i class="bi bi-person-fill"></i> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/users/logout">
+                                <i class="bi bi-box-arrow-left"></i> Logout
+                            </a>
+                        </li>
+
+                        {{/if}}
+                        {{else}}
+                        <li>
+                            <a class="dropdown-item" href="/users/signin">
+                                <i class="bi bi-box-arrow-in-left"></i> Sign In
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/users/signup">
+                                <i class="bi bi-person-plus-fill"></i> Sign Up
+                            </a>
+                        </li>
+                        {{/if}}
+
+                        {{!-- <li>
+                            <hr class="dropdown-divider">
+                        </li> --}}
+
                     </ul>
                 </li>
+                {{#if checkAuthUser}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/profile">
+                        {{!-- <svg width="30" height="30"> --}}
+                            <img {{!--:xlink:href="https://ui-avatars.com/api/?background=random&color=fff&size=30&font-size=0.50&rounded=true&bold=true&format=svg&name=Mohamed+ELYONOUSI"
+                                --}}
+                                src="https://ui-avatars.com/api/?background=random&color=fff&size=30&font-size=0.50&rounded=true&bold=true&name=Mohamed+ELYONOUSI"
+                                width="30" height="30" />
+                            {{!-- </svg> --}}
+                    </a>
+                </li>
+                {{/if}}
                 {{!-- <li class="nav-item">
                     <a class="nav-link disabled">Disabled</a>
                 </li> --}}

@@ -3,11 +3,11 @@ const localStrategy = require('passport-local').Strategy
 const User = require('../model/user')
 
 passport.serializeUser((user, done) => {
-    return done(null, user.id)
+    return done(null, user._id)
 })
 
 passport.deserializeUser((id, done) => {
-    User.findById(id, (error, user) => {
+    User.findById(id, ('email'), (error, user) => {
         /* invalide email */
         if (error) {
             return done(error, false)
@@ -32,7 +32,7 @@ passport.use('local-signin', new localStrategy({
 
         /* user not register */
         if (!user) {
-            return done(null, false, req.flash('signinError', 'email not found, please sign up'))
+            return done(null, false, req.flash('signinError', { key: 'email', mssg: 'not found, please sign up' }))
         }
 
         /* password invalide */
@@ -42,6 +42,39 @@ passport.use('local-signin', new localStrategy({
 
         /* when everything was success */
         return done(null, user)
+    })
+}))
+
+/**
+ * sign up
+ */
+passport.use('local-signup', new localStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req, email, password, done) => {
+    User.findOne({ email: email }, (err, user) => {
+        if (err) {
+            return done(err)
+        }
+
+        /* if user found check by email */
+        if (user) {
+            return done(null, false, req.flash('signupError', { key: 'email', mssg: 'has already been taken' }))
+        }
+
+        const newUser = new User({
+            email: email,
+            password: new User().hashPassword(password)
+        })
+
+        newUser.save((err, user) => {
+            if (err) {
+                return done(err)
+            }
+
+            return done(null, user)
+        })
     })
 }))
 

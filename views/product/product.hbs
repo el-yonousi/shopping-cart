@@ -1,0 +1,55 @@
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="card">
+        {{#each product}}
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a href="/products" class="btn btn-transparent btn-lg text-danger text-muted">
+                <i class="bi bi-arrow-left-circle-fill"></i>
+            </a>
+            <!-- Button trigger modal confirm-->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <img src="{{this.img}}" class="img-fluid rounded" alt="{{this.name}}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <h5 class="card-title fw-bold w-100">{{this.name}}</h5>
+                    <p class="card-text w-100 text-wrap text-muted">Storage Capacity: {{this.description.storage}}GB</p>
+                    <p class="card-text w-100 text-wrap text-muted">Number Of SIM: {{this.description.sim}}</p>
+                    <p class="card-text w-100 text-wrap text-muted">Rear Camera Resolution:
+                        {{this.description.resolution}}MP</p>
+                    <p class="card-text w-100 text-wrap text-muted">Display Size(in): {{this.description.display}}in</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <small class="text-danger fw-bold">{{this.price}}$</small>
+            <a href="/products/{{this._id}}" class="btn btn-warning btn-sm text-black float-end">Buy Now</a>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLabel">Delete Product</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Are you sure to delete this product?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="/products/{{this._id}}/delete" type="button"
+                            class="btn btn-danger text-white float-end">Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

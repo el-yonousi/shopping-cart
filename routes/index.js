@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-const controle = require('../controller/product_controller')
+const controleIndex = require('../controller/index_controller')
+const controleProduct = require('../controller/product_controller')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Shopping Cart' });
-});
+router.get('/', controleIndex.getIndex);
 
-router.get('/product', controle.getAllProduct)
-router.get('/product/delete', controle.deleteProduct)
+router.get('/products', controleProduct.isAuth, controleProduct.getAllProduct)
+router.get('/products/delete', controleProduct.isAuth, controleProduct.deleteProducts)
+router.get('/products/:product', controleProduct.isAuth, controleProduct.showProduct)
+router.get('/products/:product/delete', controleProduct.isAuth, controleProduct.deleteProduct)
 
 module.exports = router;
