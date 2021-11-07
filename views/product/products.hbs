@@ -4,14 +4,12 @@
         {{#each products}}
         <div class="col py-4 my-4">
             <div class="card" style="width: 18rem;">
-                <img src="{{this.img}}" loading="lazy" style="max-height: 25rem;" class="card-img-top" alt="samsung">
+                <a href="/products/{{this._id}}"><img src="{{this.img}}" loading="lazy" style="max-height: 25rem;" class="card-img-top" alt="samsung"></a>
                 <div class="card-body">
                     <h5 class="card-title">{{this.name}}</h5>
                     <p>
-                        Storage Capacity: {{this.description.storage}}GB<br />
-                        Number Of SIM: {{this.description.sim}}<br />
-                        Rear Camera Resolution: {{this.description.resolution}}MP<br />
-                        Display Size(in): {{this.description.display}}in<br />
+                        Storage Capacity: {{this.description.storage}}GB
+                        ...
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <small class="text-danger fw-bold">{{this.price}}$</small>

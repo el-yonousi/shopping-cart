@@ -1,6 +1,10 @@
 const Product = require("../model/product");
 
 const getAllProduct = (req, res, next) => {
+    let email = ''
+    if (req.isAuthenticated()) {
+        email = req.user.email
+    }
     Product.find({}, (error, result) => {
         if (error) {
             console.log('Get All Product Errors:: ', error);
@@ -15,7 +19,14 @@ const getAllProduct = (req, res, next) => {
             //     grid.push(result.slice(i, i + col))
             // }
             // res.render('product', { title: 'Product', products: grid });
-            res.render('product/products', { title: 'Product', products: result, checkAuthUser: req.isAuthenticated() });
+            res.render('product/products', {
+                title: 'Product',
+                products: result,
+                checkAuthUser: req.isAuthenticated(),
+                user: {
+                    email: email
+                },
+            });
         }
     }).sort({ _id: -1 }).lean()
 }
@@ -24,18 +35,28 @@ const deleteProducts = (req, res, next) => {
     Product.deleteMany({}, (error, result) => {
         if (error) {
             console.log(error);
-            res.redirect('/products')
-            return
-        } else {
-            // console.log(result);
             res.redirect('/')
+            return
         }
+
+        // console.log(result);
+        res.redirect('/')
     })
 }
 
 const showProduct = (req, res, next) => {
+    let email = ''
+    if (req.isAuthenticated()) {
+        email = req.user.email
+    }
     Product.find({ _id: req.params.product }, (err, product) => {
-        res.render('product/product', { product: product, checkAuthUser: req.isAuthenticated() })
+        res.render('product/product', {
+            product: product,
+            checkAuthUser: req.isAuthenticated(),
+            user: {
+                email: email
+            },
+        })
     }).lean()
 }
 
@@ -44,14 +65,14 @@ const deleteProduct = (req, res, next) => {
         Product.deleteOne({ _id: req.params.product }, (err, product) => {
             if (err) {
                 console.log(err);
-                res.redirect('/products/' + req.params.product)
+                res.redirect('/' + req.params.product)
                 return
             }
-            res.redirect('/products')
+            res.redirect('/')
             return
         })
     } catch (error) {
-        res.redirect('/products')
+        res.redirect('/')
         return
     }
 
@@ -59,7 +80,7 @@ const deleteProduct = (req, res, next) => {
 
 const isAuth = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        res.redirect('users/signin')
+        res.redirect('/users/signin')
     }
     next()
 }

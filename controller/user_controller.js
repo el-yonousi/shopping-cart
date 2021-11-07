@@ -116,7 +116,18 @@ const loginAuth = passport.authenticate('local-signin', {
 })
 
 const getProfileUser = (req, res, next) => {
-    res.render('user/profile', { title: 'Profile', checkAuthUser: true, checkProfile: true })
+    let email = ''
+    if (req.isAuthenticated()) {
+        email = req.user.email
+    }
+    res.render('user/profile', {
+        title: 'Profile',
+        checkAuthUser: true,
+        user: {
+            email: email
+        },
+        checkProfile: true
+    })
 }
 
 const getLogout = (req, res, next) => {

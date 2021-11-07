@@ -37,7 +37,7 @@ passport.use('local-signin', new localStrategy({
 
         /* password invalide */
         if (!user.comparePassword(password)) {
-            return done(null, false, req.flash('signinError', 'wrong password'))
+            return done(null, false, req.flash('signinError', { key: 'email', mssg: 'wrong password' }))
         }
 
         /* when everything was success */
